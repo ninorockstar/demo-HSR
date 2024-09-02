@@ -26,9 +26,9 @@ if __name__ == "__main__":
     load_dotenv()
     # Replace 'your_api_key' with your actual NASA API key
     api_key=os.getenv('NASA_API_KEY')
+    print(api_key)
 
-    api_key = 'ywKJbft8HQx8ffSZTw8wjmEP2fv61KjZLaOC3hAv'
     # Initialize the ETL pipeline
-    pipeline = NEODataPipeline(api_key)
+    # pipeline = NEODataPipeline(api_key)
     # Run the pipeline
-    pipeline.run()
+    # pipeline.run()

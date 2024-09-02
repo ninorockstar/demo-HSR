@@ -2,7 +2,8 @@ import pandas as pd
 from Extractor import NEODataExtractor
 from Transformer import NEODataTransformer
 from Loader import NEODataLoader
-
+import os
+from dotenv import load_dotenv
 
 class NEODataPipeline:
     def __init__(self, api_key):
@@ -22,7 +23,10 @@ class NEODataPipeline:
 
 
 if __name__ == "__main__":
+    load_dotenv()
     # Replace 'your_api_key' with your actual NASA API key
+    api_key=os.getenv('NASA_API_KEY')
+
     api_key = 'ywKJbft8HQx8ffSZTw8wjmEP2fv61KjZLaOC3hAv'
     # Initialize the ETL pipeline
     pipeline = NEODataPipeline(api_key)

@@ -11,10 +11,9 @@ class NEODataPipeline:
         self.transformer = NEODataTransformer()
         self.loader = NEODataLoader()
 
-    def run(self, start_date=None, end_date=None):
+    def runEtl(self, start_date=None, end_date=None):
         # Extract data
         raw_data = self.extractor.fetch_data(start_date, end_date)
-
         # Transform data
         transformed_data = self.transformer.transform(raw_data)
 
@@ -24,11 +23,9 @@ class NEODataPipeline:
 
 if __name__ == "__main__":
     load_dotenv()
-    # Replace 'your_api_key' with your actual NASA API key
     api_key=os.getenv('NASA_API_KEY')
-    print(api_key)
 
     # Initialize the ETL pipeline
-    # pipeline = NEODataPipeline(api_key)
+    pipeline = NEODataPipeline(api_key)
     # Run the pipeline
-    # pipeline.run()
+    pipeline.runEtl()

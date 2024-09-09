@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 import requests
 
+
 class NEODataExtractor:
     """
     Een klasse die wordt gebruikt om Near Earth Object (NEO) gegevens op te halen van de NASA NeoWs API.
@@ -17,6 +18,7 @@ class NEODataExtractor:
     fetch_data(start_date=None, end_date=None):
         Haalt NEO-gegevens op van de NASA NeoWs API binnen een opgegeven datumbereik.
     """
+
     def __init__(self, api_key):
         """
             Initialiseert de NEODataExtractor met de opgegeven NASA API-sleutel.
@@ -45,7 +47,7 @@ class NEODataExtractor:
         }
 
         response = requests.get(self.url, params=params)
-        if response.status_code == 200:
+        if response.status_code == 200: # 200 indicates succes
             return response.json()
         else:
             raise Exception(f"Failed to fetch data: {response.status_code}")

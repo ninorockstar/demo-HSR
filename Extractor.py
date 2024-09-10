@@ -8,9 +8,9 @@ class NEODataExtractor:
 
     Attributen
     ----------
-    api_key : str
+    api_key: str
         De API-sleutel die wordt gebruikt om te authenticeren bij de NASA NeoWs API.
-    url : str
+    URL: str
         De basis-URL voor de NASA NeoWs feed API.
 
     Methodes
@@ -32,11 +32,27 @@ class NEODataExtractor:
         self.url = 'https://api.nasa.gov/neo/rest/v1/feed'
 
     def fetch_data(self, start_date=None, end_date=None):
+        """
+        Haalt gegevens op van een externe API binnen een opgegeven datumbereik.
+
+        Deze functie haalt gegevens op van een opgegeven URL door een HTTP GET-verzoek te doen,
+        met gebruik van de verstrekte API-sleutel en het opgegeven datumbereik.
+        Als er geen start- of einddatum wordt opgegeven, haalt de functie standaard gegevens op voor de laatste 7 dagen.
+
+        Args:
+            start_date (datetime, optioneel): De begindatum voor het ophalen van gegevens. Standaard is 7 dagen geleden.
+            end_date (datetime, optioneel): De einddatum voor het ophalen van gegevens. Standaard is de huidige datum.
+        Returns:
+            dict: De opgehaalde gegevens in JSON-formaat als het verzoek succesvol is.
+        Raises:
+            Exception: Als het ophalen van gegevens mislukt (geen statuscode 200).
+        """
         if not start_date:
             start_date = datetime.now() - timedelta(days=7)
         if not end_date:
             end_date = datetime.now()
 
+        # Zet data in het juiste format.
         start_date_str = start_date.strftime('%Y-%m-%d')
         end_date_str = end_date.strftime('%Y-%m-%d')
 
@@ -45,9 +61,9 @@ class NEODataExtractor:
             'end_date': end_date_str,
             'api_key': self.api_key
         }
-
+        #   Data van 1 week dus in het object.
         response = requests.get(self.url, params=params)
-        if response.status_code == 200: # 200 indicates succes
+        if response.status_code == 200:
             return response.json()
         else:
             raise Exception(f"Failed to fetch data: {response.status_code}")
